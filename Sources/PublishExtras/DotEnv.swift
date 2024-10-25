@@ -10,11 +10,20 @@ import Foundation
 /// An abstraction that takes care of handling variables contained into your DotEnv files.
 public enum DotEnv {
     /// An error that occurs while reading a dotenv file.
-    public enum Error: Swift.Error {
+    public enum Error: Equatable, LocalizedError {
         /// The dotenv file was not found.
-        case fileNotFound
+        case fileNotFound(String)
         /// The dotenv file was not in the expected format.
         case invalidFormat
+
+        public var errorDescription: String? {
+            switch self {
+            case .fileNotFound(let filePath):
+                "Unable to locate the DotEnv file at `\(filePath)`."
+            case .invalidFormat:
+                "The DotEnv file has an invalid format."
+            }
+        }
     }
 
     /// Loads a dotenv in the root directory with the given name.
@@ -29,7 +38,7 @@ public enum DotEnv {
         #endif
 
         if !FileManager.default.fileExists(atPath: filePath) {
-            throw Error.fileNotFound
+            throw Error.fileNotFound(filePath)
         }
 
         let lines = try String(contentsOfFile: filePath, encoding: .utf8).split(separator: "\n")
@@ -71,7 +80,7 @@ public enum DotEnv {
         }
 
         guard pathComponents.isNotEmpty else {
-            throw Error.fileNotFound
+            throw Error.fileNotFound(directory)
         }
 
         return URL(fileURLWithPath: pathComponents.joined(separator: "/"))
