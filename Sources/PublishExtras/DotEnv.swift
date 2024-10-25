@@ -19,9 +19,9 @@ public enum DotEnv {
         public var errorDescription: String? {
             switch self {
             case .fileNotFound(let filePath):
-                "Unable to locate the DotEnv file at `\(filePath)`."
+                "Unable to locate the .env file at `\(filePath)`."
             case .invalidFormat:
-                "The DotEnv file has an invalid format."
+                "The .env file has an invalid format."
             }
         }
     }
