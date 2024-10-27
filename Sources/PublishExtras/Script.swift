@@ -6,6 +6,7 @@
 //  Copyright © 2023 Mobelux. All rights reserved.
 //
 
+import PlotExtras
 import Foundation
 import Plot
 @preconcurrency import Publish
