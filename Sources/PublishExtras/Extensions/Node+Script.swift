@@ -7,7 +7,6 @@
 //
 
 import Plot
-import PlotExtras
 import Publish
 
 // MARK: - Scripts
