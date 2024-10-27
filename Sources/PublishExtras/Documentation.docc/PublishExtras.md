@@ -1,4 +1,4 @@
-# ``Core``
+# ``PublishExtras``
 
 Utilities for building static site generators using the Publish and Plot packages.
 
@@ -14,7 +14,7 @@ Utilities for building static site generators using the Publish and Plot package
 
 ## Overview
 
-The `Core` package provides helper types and general-purpose components for building static site generators using the [Publish](https://github.com/JohnSundell/Publish) and [Plot](https://github.com/JohnSundell/Plot) packages.
+The `PublishExtras` package provides helper types and general-purpose components for building static site generators using the [Publish](https://github.com/JohnSundell/Publish) and [Plot](https://github.com/JohnSundell/Plot) packages.
 
 ## Topics
 
