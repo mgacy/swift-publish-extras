@@ -42,6 +42,15 @@ public struct SectionItem<Metadata: WebsiteItemMetadata>: AnyItem {
         return prefix + title + suffix
     }
 
+    /// Creates an instance.
+    ///
+    /// - Parameters:
+    ///   - metadata: The item's section-specific metadata.
+    ///   - tags: The item's tags.
+    ///   - content: The location's main content.
+    ///   - rssProperties: Properties that can be used to customize how an item is presented within
+    ///   an RSS feed.
+    ///   - path: The absolute path of the location within the website, excluding its base URL.
     public init(metadata: Metadata, tags: [Tag], content: Content, rssProperties: ItemRSSProperties, path: Path) {
         self.metadata = metadata
         self.tags = tags
@@ -52,6 +61,11 @@ public struct SectionItem<Metadata: WebsiteItemMetadata>: AnyItem {
 }
 
 public extension SectionItem {
+    /// Creates an instance.
+    ///
+    /// - Parameters:
+    ///   - item: An item represents a website page that is contained within a `Section`.
+    ///   - metadata: The item's section-specific metadata.
     init<Site: Website>(_ item: Item<Site>, metadata: Metadata) {
         self.metadata = metadata
         self.tags = item.tags
@@ -60,6 +74,12 @@ public extension SectionItem {
         self.path = item.path
     }
 
+    /// Creates an instance.
+    ///
+    /// - Parameters:
+    ///   - item: An item represents a website page that is contained within a `Section`.
+    ///   - transformMetadata: A closure that transforms website metadata into section-specific
+    ///   metadata.
     init?<Site: Website>(_ item: Item<Site>, transformMetadata: (Site.ItemMetadata) -> Metadata?) {
         guard let metadata = transformMetadata(item.metadata) else {
             return nil

@@ -10,6 +10,10 @@ import Foundation
 import Plot
 
 public extension Script {
+    /// Returns a script that loads Google Tag Manager.
+    ///
+    /// - Parameter configuration: The configuration for Google Tag Manager.
+    /// - Returns: A script that loads Google Tag Manager.
     static func gtm(_ configuration: GTMConfiguration) -> Self {
         // swiftlint:disable line_length
         .inline("""

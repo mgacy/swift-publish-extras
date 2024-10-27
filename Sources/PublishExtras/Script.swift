@@ -43,7 +43,7 @@ public struct Script: Sendable {
 
         public static let attributeName = "type"
 
-        /// Indicates that the script is a "classic script", containing JavaScript code. 
+        /// Indicates that the script is a "classic script", containing JavaScript code.
         ///
         /// Authors are encouraged to omit the attribute if the script refers to JavaScript code
         /// rather than specify a MIME type.
@@ -90,6 +90,12 @@ public struct Script: Sendable {
     /// The script element's `type`.
     public let type: ScriptType?
 
+    /// Creates an instance.
+    ///
+    /// - Parameters:
+    ///   - source: How the script is provided.
+    ///   - loadingBehavior: How an external script should be downloaded and executed.
+    ///   - type: The script element's `type`.
     internal init(
         source: Source,
         loadingBehavior: LoadingBehavior? = nil,

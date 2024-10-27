@@ -26,6 +26,10 @@
 import enum Publish.SortOrder
 
 public extension SortOrder {
+    /// Returns a closre that sorts items for a given key path.
+    ///
+    /// - Parameter keyPath: The key path to sort by.
+    /// - Returns: A closure that sorts items for a given key path.
     func makeSorter<T, V: Comparable>(
         forKeyPath keyPath: KeyPath<T, V>
     ) -> (T, T) -> Bool {

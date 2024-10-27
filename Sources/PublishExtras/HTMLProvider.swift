@@ -14,6 +14,7 @@ public struct HTMLProvider<Site: Website> {
     let provider: @Sendable (Location, PublishingContext<Site>, [Script], @escaping () -> Component) -> HTML
 
     /// Creates an HTML provider.
+    ///
     /// - Parameter provider: A closure that returns HTML for the given location and context.
     public init(
         provider: @escaping @Sendable (Location, PublishingContext<Site>, [Script], @escaping () -> Component) -> HTML
@@ -21,7 +22,8 @@ public struct HTMLProvider<Site: Website> {
         self.provider = provider
     }
 
-    /// Create the HTML for a given location and context.
+    /// Creates the HTML for a given location and context.
+    ///
     /// - Parameters:
     ///   - location: The location to generate HTML for.
     ///   - context:  The current publishing context.
