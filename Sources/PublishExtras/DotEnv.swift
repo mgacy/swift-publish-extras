@@ -5,6 +5,7 @@
 //  Based on https://github.com/fborges/Environmentalism by Felipe Borges
 //
 
+import Files
 import Foundation
 
 /// An abstraction that takes care of handling variables contained into your DotEnv files.
@@ -28,9 +29,11 @@ public enum DotEnv {
 
     /// Loads a dotenv in the root directory with the given name.
     ///
-    /// - Parameter fileName: The name of the dotenv file.
-    public static func load(_ fileName: String = ".env") throws {
-        let rootPath = try parent(of: "Sources")
+    /// - Parameters:
+    ///   - fileName: The name of the dotenv file.
+    ///   - file: The file from which this method is called.
+    public static func load(_ fileName: String = ".env", file: StaticString = #filePath) throws {
+        let rootPath = try resolveSwiftPackageFolder(of: "\(file)")
         #if os(Linux)
         let filePath = rootPath.appendingPathComponent(fileName).path
         #else
@@ -66,23 +69,21 @@ public enum DotEnv {
         }
     }
 
-    private static func parent(of directory: String) throws -> URL {
-        var pathComponents = URL(fileURLWithPath: #file).pathComponents
-        var foundDirectory = false
-        while let component = pathComponents.last {
-            if foundDirectory {
-                break
-            } else if component == directory {
-                foundDirectory = true
+    private static func resolveSwiftPackageFolder(of path: String) throws -> URL {
+        guard let file = try? File(path: path) else {
+            throw Error.fileNotFound(path)
+        }
+
+        var nextFolder = file.parent
+
+        while let currentFolder = nextFolder {
+            if currentFolder.containsFile(named: "Package.swift") {
+                return currentFolder.url
             }
 
-            pathComponents.removeLast()
+            nextFolder = currentFolder.parent
         }
 
-        guard pathComponents.isNotEmpty else {
-            throw Error.fileNotFound(directory)
-        }
-
-        return URL(fileURLWithPath: pathComponents.joined(separator: "/"))
+        throw Error.fileNotFound("Package.swift")
     }
 }
