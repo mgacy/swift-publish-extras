@@ -154,10 +154,7 @@ public extension Node where Context == HTML.VideoContext {
 public extension Node where Context == HTML.BodyContext {
     /// Returns a `Node` containing the Google Tag Manager script for the `<body>` of a document.
     ///
-    /// - Parameters:
-    ///   - id: The GTM container ID.
-    ///   - auth: The GTM auth token.
-    ///   - preview: The GTM preview environment.
+    /// - Parameter configuration: The configuration for Google Tag Manager.
     /// - Returns: The `Node` containing the GTM script.
     static func gtmBodySnippet(_ configuration: GTMConfiguration) -> Node<HTML.BodyContext> {
         Node.noscript(

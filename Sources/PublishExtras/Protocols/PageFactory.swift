@@ -47,7 +47,7 @@ public extension PublishingStep {
     /// Add pages created for the given routes using the given page factory.
     ///
     /// - Parameters:
-    ///   - routes: The route type for which pages should be created.
+    ///   - route: The route type for which pages should be created.
     ///   - factory: The page factory to use to create the pages.
     static func addPages<R: Route, F: PageFactory>(
         for route: R.Type,

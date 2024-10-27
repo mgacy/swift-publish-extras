@@ -28,6 +28,7 @@ public extension Website {
     ///   - rssFeedConfig: The configuration to use for the site's RSS feed. A feed will only be
     ///   generated if a configuration is provided.
     ///   - deploymentMethod: How to deploy the website.
+    ///   - file: The file that this method is called from (auto-inserted).
     /// - Returns: The published website.
     @discardableResult
     func publish(
