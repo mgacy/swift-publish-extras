@@ -20,6 +20,7 @@ public extension Website {
     ///   - preGenerationPlugins: Plugins to be installed at the start of the publishing process.
     ///   - preGenerationSteps: Any additional steps to add to the publishing
     ///   pipeline. Will be executed right before the HTML generation process begins.
+    ///   - addMarkdownFiles: Whether to add Markdown files.
     ///   - postGenerationPlugins: Plugins to be installed after
     ///   - postGenerationSteps: Additional steps to add to the pipeline after the HTML generation
     ///   process.
@@ -35,6 +36,7 @@ public extension Website {
         at path: Path? = nil,
         preGenerationPlugins: [Plugin<Self>] = [],
         preGenerationSteps: [PublishingStep<Self>] = [],
+        addMarkdownFiles: Bool = true,
         postGenerationPlugins: [Plugin<Self>] = [],
         postGenerationSteps: [PublishingStep<Self>] = [],
         rssFeedSections: Set<SectionID> = Set(SectionID.allCases),
@@ -47,7 +49,7 @@ public extension Website {
             using: [
                 .group(preGenerationPlugins.map(PublishingStep.installPlugin)),
                 .optional(.copyResources()),
-                .addMarkdownFiles(),
+                .if(addMarkdownFiles, .addMarkdownFiles()),
                 .sortItems(by: \.date, order: .descending),
                 .group(preGenerationSteps),
                 .generateHTML(withTheme: theme, indentation: indentation),
