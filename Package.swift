@@ -3,27 +3,30 @@
 
 import PackageDescription
 
-let swiftSettings: [SwiftSetting] = [
-    .enableExperimentalFeature("StrictConcurrency"),
-    .enableUpcomingFeature("InferSendableFromCaptures")
-]
-
 let package = Package(
     name: "PublishExtras",
     platforms: [.macOS(.v13)],
     products: [
+        .library(name: "PlotExtras", targets: ["PlotExtras"]),
         .library(name: "PublishExtras", targets: ["PublishExtras"])
     ],
     dependencies: [
+        .package(url: "https://github.com/johnsundell/plot.git", from: "0.9.0"),
         .package(url: "https://github.com/johnsundell/publish.git", from: "0.9.0")
     ],
     targets: [
         .target(
+            name: "PlotExtras",
+            dependencies: [
+                .product(name: "Plot", package: "plot")
+            ]
+        ),
+        .target(
             name: "PublishExtras",
             dependencies: [
+                "PlotExtras",
                 .product(name: "Publish", package: "publish")
-            ],
-            swiftSettings: swiftSettings
+            ]
         ),
         .testTarget(
             name: "PublishExtrasTests",
@@ -33,3 +36,11 @@ let package = Package(
         )
     ]
 )
+
+for target in package.targets where target.type != .system && target.type != .test {
+    target.swiftSettings = target.swiftSettings ?? []
+    target.swiftSettings?.append(contentsOf: [
+        .enableExperimentalFeature("StrictConcurrency"),
+        .enableUpcomingFeature("InferSendableFromCaptures")
+    ])
+}
