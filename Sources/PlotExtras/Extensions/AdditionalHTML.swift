@@ -12,7 +12,7 @@ import Foundation
 // MARK: - Element-based
 
 public extension ElementDefinitions {
-    /// Definition for the `<i>` element.
+    /// Definition for the `<address>` element.
     enum Address: ElementDefinition {
         public typealias InputContext = HTML.BodyContext
         public typealias OutputContext = HTML.BodyContext
