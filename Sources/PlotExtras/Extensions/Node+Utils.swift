@@ -9,6 +9,29 @@
 import Foundation
 import Plot
 
+public extension Node where Context: HTML.BodyContext {
+    /// Adds an `<address>` HTML element within the current context.
+    ///
+    /// - parameter nodes: The element's attributes and child elements.
+    static func address(_ nodes: Node<HTML.BodyContext>...) -> Node {
+        .element(named: "address", nodes: nodes)
+    }
+
+    /// Adds a `<hgroup>` HTML element within the current context.
+    ///
+    /// - parameter nodes: The element's attributes and child elements.
+    static func hgroup(_ nodes: Node<HTML.BodyContext>...) -> Node {
+        .element(named: "hgroup", nodes: nodes)
+    }
+
+    /// Adds a `<search>` HTML element within the current context.
+    ///
+    /// - parameter nodes: The element's attributes and child elements.
+    static func search(_ nodes: Node<HTML.BodyContext>...) -> Node {
+        .element(named: "search", nodes: nodes)
+    }
+}
+
 public extension Node where Context: HTMLMediaContext {
     /// Assigns whether the element's media should play automatically.
     ///
