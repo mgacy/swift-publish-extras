@@ -19,9 +19,9 @@ jobs:
       pull-requests: write
     steps:
       - name: Git checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Danger
-        uses: 417-72KI/danger-swiftlint@v6.2
+        uses: 417-72KI/danger-swiftlint@v6.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
